@@ -3,8 +3,9 @@ source("1_fetch/src/get_nwis_data.R")
 source("2_process/src/process_and_style.R")
 source("3_visualize/src/plot_timeseries.R")
 
+# Loading tidyverse because we need dplyr, ggplot2, readr, stringr, and purrr
 options(tidyverse.quiet = TRUE)
-tar_option_set(packages = c("tidyverse", "dataRetrieval")) # Loading tidyverse because we need dplyr, ggplot2, readr, stringr, and purrr
+tar_option_set(packages = c("tidyverse", "dataRetrieval", "arrow"))
 
 p_width <- 12
 p_height <- 7
@@ -68,16 +69,22 @@ p1_targets_list <- list(
 
 p2_targets_list <- list(
   tar_target(
-    site_data_styled, 
-    process_data(site_data, site_filename = site_info_csv)
+    site_data_styled_feather, 
+    process_data(site_data,
+                 site_filename = site_info_csv,
+                 fileout = "2_process/out/site_data_styled.feather"),
+    format = "file"
   )
 )
 
 p3_targets_list <- list(
   tar_target(
     figure_1_png,
-    plot_nwis_timeseries(fileout = "3_visualize/out/figure_1.png", site_data_styled,
-                         width = p_width, height = p_height, units = p_units),
+    plot_nwis_timeseries(fileout = "3_visualize/out/figure_1.png",
+                         site_data_styled = site_data_styled_feather,
+                         width = p_width,
+                         height = p_height,
+                         units = p_units),
     format = "file"
   )
 )
