@@ -10,9 +10,9 @@ tar_option_set(packages = c("tidyverse", "dataRetrieval", "arrow"))
 p_width <- 12
 p_height <- 7
 p_units <- "in"
-parameterCd = '00010'
-startDate="2014-05-01"
-endDate="2015-05-01"
+parameterCd <- '00010'
+startDate <- "2014-05-01"
+endDate <- "2015-05-01"
 
 p1_targets_list <- list(
   tar_target(
