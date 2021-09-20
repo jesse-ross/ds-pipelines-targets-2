@@ -6,10 +6,63 @@ source("3_visualize/src/plot_timeseries.R")
 options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c("tidyverse", "dataRetrieval")) # Loading tidyverse because we need dplyr, ggplot2, readr, stringr, and purrr
 
+p_width <- 12
+p_height <- 7
+p_units <- "in"
+parameterCd = '00010'
+startDate="2014-05-01"
+endDate="2015-05-01"
+
 p1_targets_list <- list(
   tar_target(
+    site_data_01427207_csv,
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01427207_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
+    format = "file",
+  ),
+  tar_target(
+    site_data_01432160_csv,
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01432160_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
+    format = "file",
+  ),
+  tar_target(
+    site_data_01435000_csv,
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01435000_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
+    format = "file",
+  ),
+  tar_target(
+    site_data_01436690_csv,
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01436690_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
+    format = "file",
+  ),
+  tar_target(
+    site_data_01466500_csv,
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01466500_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
+    format = "file",
+  ),
+  tar_target(
     site_data,
-    download_nwis_data(),
+    combine_nwis_site_data(site_csvs = c(site_data_01427207_csv,
+                                         site_data_01432160_csv,
+                                         site_data_01435000_csv,
+                                         site_data_01436690_csv,
+                                         site_data_01466500_csv
+                                         )
+                           )
   ),
   tar_target(
     site_info_csv,
@@ -20,23 +73,16 @@ p1_targets_list <- list(
 
 p2_targets_list <- list(
   tar_target(
-    site_data_clean, 
-    process_data(site_data)
-  ),
-  tar_target(
-    site_data_annotated,
-    annotate_data(site_data_clean, site_filename = site_info_csv)
-  ),
-  tar_target(
-    site_data_styled,
-    style_data(site_data_annotated)
+    site_data_styled, 
+    process_data(site_data, site_filename = site_info_csv)
   )
 )
 
 p3_targets_list <- list(
   tar_target(
     figure_1_png,
-    plot_nwis_timeseries(fileout = "3_visualize/out/figure_1.png", site_data_styled),
+    plot_nwis_timeseries(fileout = "3_visualize/out/figure_1.png", site_data_styled,
+                         width = p_width, height = p_height, units = p_units),
     format = "file"
   )
 )

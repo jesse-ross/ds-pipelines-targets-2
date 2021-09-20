@@ -4,3 +4,5 @@
 .Ruserdata
 
 _targets/*
+1_fetch/out/
+3_visualize/out/
