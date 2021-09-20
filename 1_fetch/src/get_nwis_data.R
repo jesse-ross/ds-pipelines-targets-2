@@ -15,7 +15,7 @@ nwis_site_info <- function(fileout, site_data){
 }
 
 
-download_nwis_site_data <- function(filepath, parameterCd = '00010', startDate="2014-05-01", endDate="2015-05-01"){
+download_nwis_site_data <- function(filepath, parameterCd, startDate, endDate){
   
   # filepaths look something like directory/nwis_01432160_data.csv,
   # remove the directory with basename() and extract the 01432160 with the regular expression match

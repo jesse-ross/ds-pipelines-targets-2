@@ -9,30 +9,49 @@ tar_option_set(packages = c("tidyverse", "dataRetrieval")) # Loading tidyverse b
 p_width <- 12
 p_height <- 7
 p_units <- "in"
+parameterCd = '00010'
+startDate="2014-05-01"
+endDate="2015-05-01"
+
 p1_targets_list <- list(
   tar_target(
     site_data_01427207_csv,
-    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01427207_data.csv"),
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01427207_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
     format = "file",
   ),
   tar_target(
     site_data_01432160_csv,
-    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01432160_data.csv"),
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01432160_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
     format = "file",
   ),
   tar_target(
     site_data_01435000_csv,
-    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01435000_data.csv"),
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01435000_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
     format = "file",
   ),
   tar_target(
     site_data_01436690_csv,
-    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01436690_data.csv"),
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01436690_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
     format = "file",
   ),
   tar_target(
     site_data_01466500_csv,
-    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01466500_data.csv"),
+    download_nwis_site_data(filepath =  "1_fetch/out/nwis_01466500_data.csv",
+                            parameterCd = parameterCd,
+                            startDate = startDate,
+                            endDate = endDate),
     format = "file",
   ),
   tar_target(
