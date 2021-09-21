@@ -1,5 +1,5 @@
 # standardize column names, add site metadata, drop unnecessary columns
-process_data <- function(nwis_data, site_filename) {
+process_data <- function(nwis_data, site_filename, fileout) {
   site_info <- read_csv(site_filename)
   site_data_styled <- nwis_data %>%
     rename(water_temperature = X_00010_00000) %>% 
@@ -12,5 +12,6 @@ process_data <- function(nwis_data, site_filename) {
            latitude = dec_lat_va,
            longitude = dec_long_va) %>%
     mutate(station_name = as.factor(station_name))
-  site_data_styled
+  write_feather(site_data_styled, fileout)
+  fileout
 }

@@ -1,12 +1,3 @@
-combine_nwis_site_data <- function(site_csvs) {
-  data_out <- data.frame()
-  for (site_csv in site_csvs) {
-    these_data <- read_csv(site_csv, col_types = 'ccTdcc')
-    data_out <- bind_rows(data_out, these_data)
-  }
-  data_out
-}
-
 nwis_site_info <- function(fileout, site_data){
   site_no <- unique(site_data$site_no)
   site_info <- dataRetrieval::readNWISsite(site_no)
@@ -15,13 +6,7 @@ nwis_site_info <- function(fileout, site_data){
 }
 
 
-download_nwis_site_data <- function(filepath, parameterCd, startDate, endDate){
-  
-  # filepaths look something like directory/nwis_01432160_data.csv,
-  # remove the directory with basename() and extract the 01432160 with the regular expression match
-  site_num <- basename(filepath) %>% 
-    stringr::str_extract(pattern = "(?:[0-9]+)")
-  
+download_nwis_site_data <- function(site_num, parameterCd, startDate, endDate){
   # readNWISdata is from the dataRetrieval package
   data_out <- readNWISdata(sites=site_num, service="iv", 
                            parameterCd = parameterCd, startDate = startDate, endDate = endDate)
@@ -33,7 +18,6 @@ download_nwis_site_data <- function(filepath, parameterCd, startDate, endDate){
   }
   # -- end of do-not-edit block
   
-  write_csv(data_out, file = filepath)
-  return(filepath)
+  data_out
 }
 
