@@ -1,5 +1,9 @@
 source("1_fetch/src/get_nwis_data.R")
 
+parameterCd <- '00010'
+startDate <- "2014-05-01"
+endDate <- "2015-05-01"
+
 p1_targets_list <- list(
   tar_target(
     p1_site_data_01427207,

@@ -1,5 +1,9 @@
 source("3_visualize/src/plot_timeseries.R")
 
+p_width <- 12
+p_height <- 7
+p_units <- "in"
+
 p3_targets_list <- list(
   tar_target(
     p3_figure_1_png,
